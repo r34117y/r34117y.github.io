@@ -1,4 +1,6 @@
 /* random qoutes from WikiQoutes api */
+/* https://codepen.io/ahmady09/pen/PNejyN */
+
 var Wikiquote = (function() {
 
     var wqa = {};
