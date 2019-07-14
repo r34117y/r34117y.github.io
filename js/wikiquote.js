@@ -225,7 +225,8 @@ var authors = [
         "Sigmund Freud",
         "Thomas A. Edison",
         "Robin Williams",
-        "Steve Jobs"
+        "Steve Jobs",
+        "dreaming"
     ],
     $quote = $('#quote'),
     $btns = $('.btn'),
@@ -252,7 +253,8 @@ var authors = [
     },
     getQuote =  function() {
         $quote.css('opacity','0');
-        Wikiquote.getRandomQuote(authors[randInt(0, 9)],
+        //Wikiquote.getRandomQuote(authors[randInt(0, 9)],
+        Wikiquote.getRandomQuote("dreaming",
             function (quote) {
                 console.log(quote.quote);
                 if (quote.quote && quote.quote.length <= 180) {
