@@ -25,6 +25,9 @@ var Wikiquote = (function() {
             },
 
             success: function(result, status) {
+                if (! result.query) {
+                    debugger;
+                }
                 var pages = result.query.pages;
                 var pageId = -1;
                 for(var p in pages) {
@@ -38,7 +41,15 @@ var Wikiquote = (function() {
                 if(pageId > 0) {
                     success(pageId);
                 } else {
-                    error("No results");
+                    var index = authors.indexOf(titles);
+                    if (index !== -1) {
+                        authors.splice(index, 1);
+                    }
+                    if (authors.length) {
+                        getQuote()
+                    } else {
+                        error("No results");
+                    }
                 }
             },
 
@@ -216,18 +227,11 @@ var Wikiquote = (function() {
 /* random qoutes from WikiQoutes api */
 /* my script */
 var authors = [
-        "Mahatma Gandhi",
-        "Albert Einstein",
-        "Martin Luther King, Jr.",
-        "Leonardo da Vinci",
-        "Walt Disney",
-        "Edgar Allan Poe",
-        "Sigmund Freud",
-        "Thomas A. Edison",
-        "Robin Williams",
-        "Steve Jobs",
-        "dreaming"
+        "Stanislaw Lem",
+        "Greg Egan",
+        "Plato"
     ],
+    stopwords = ['shall', 'whose', 'i','me','my','myself','we','our','ours','ourselves','you','your','yours','yourself','yourselves','he','him','his','himself','she','her','hers','herself','it','its','itself','they','them','their','theirs','themselves','what','which','who','whom','this','that','these','those','am','is','are','was','were','be','been','being','have','has','had','having','do','does','did','doing','a','an','the','and','but','if','or','because','as','until','while','of','at','by','for','with','about','against','between','into','through','during','before','after','above','below','to','from','up','down','in','out','on','off','over','under','again','further','then','once','here','there','when','where','why','how','all','any','both','each','few','more','most','other','some','such','no','nor','not','only','own','same','so','than','too','very','s','t','can','will','just','don','should','now']
     $quote = $('#quote'),
     $btns = $('.btn'),
     randInt = function(min, max) {
@@ -251,21 +255,41 @@ var authors = [
         });
         $btns.css('background',color);
     },
+    removeStopwords = function(str) {
+        var res = [];
+        var words = str.split(' ');
+        for(var i = 0; i < words.length; i++) {
+            var stripped = words[i].replace(/[^a-z]/gmi, "").replace(/\s+/g, "").toLocaleLowerCase();
+            if(!stopwords.includes(stripped)) {
+                res.push(stripped)
+            }
+        }
+        return res;
+    },
+    setAuthors = function(quote) {
+        authors = [...new Set(removeStopwords(quote.quote))];
+        console.log(authors);
+    },
     getQuote =  function() {
         $quote.css('opacity','0');
-        //Wikiquote.getRandomQuote(authors[randInt(0, 9)],
-        Wikiquote.getRandomQuote("dreaming",
+        var keyword = authors[Math.floor(Math.random() * authors.length)];
+        if (! keyword.length) {
+            keyword = 'random';
+        }
+        Wikiquote.getRandomQuote(keyword,
             function (quote) {
                 console.log(quote.quote);
-                if (quote.quote && quote.quote.length <= 180) {
-                    colorUI(randColor());
+                if (quote.quote) {
+                    //colorUI(randColor());
                     setHtml(quote);
+                    setAuthors(quote);
                     $quote.css('opacity','1');
                 } else {
                     getQuote();
                 }
 
             }, function (e) {
+                console.log(e)
             });
     };
 

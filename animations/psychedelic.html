@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>r34117y</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+<script>
+    var canvas = document.getElementById('canvas');
+    var ctx = canvas.getContext('2d');
+    canvas.width = 800;
+    canvas.height = 600;
+    v = 450;
+    t = 0;
+    o = 255;
+    function main() {
+        t += 0.01;
+        w = 600 + Math.sin(t) * 100;
+        red = Math.floor(Math.sin(t*3)*o);
+        green = Math.floor(Math.sin(t*5)*o);
+        black = Math.floor(Math.sin(t*7)*o);
+
+        with(ctx){
+            fillStyle = "rgba(0,0,0,0.005)";
+            fillRect(0, 0, w, w); // x,y, width,height
+            fillRect(w, w, w, w);
+            fillStyle="rgba("+red+","+green+","+black+",0.1)";
+            fillRect(w, 0, w, w);
+            fillRect(0, w, w, w);
+            drawImage(canvas,0,w,w,w);
+            drawImage(canvas,w,w,w,w);
+            drawImage(canvas,w,0,w,w);
+            drawImage(canvas,0,0,w,w);
+            translate(v,v);
+            rotate(0.01*Math.abs(Math.sin(t))); // obraca cały kontekst
+            translate(-v,-v); // ustawia nową pozycję (0,0)
+        }
+        setTimeout('main()',100);
+    }
+    main();
+</script>
+</body>
+
+</html>
+
