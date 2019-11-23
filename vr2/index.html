@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>WebVR Demo</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		
+		<style>
+			html, body { margin: 0; padding:0; overflow: hidden; }		
+		</style>
+	</head>
+	<body>
+
+		<script src="libs/three.min.js"></script>
+		<script src="libs/WebVR.js"></script>
+		<script src="libs/BoxLineGeometry.js"></script>
+		<script>
+
+			var clock = new THREE.Clock();
+
+			var container, camera, scene, raycaster, renderer, room, crosshair,HIT;
+			var isMouseDown = false;
+			var objects=[]; // collection of objects
+			var num=100; // number of objects
+			var raycaster = new THREE.Raycaster();
+
+			
+			
+			scene = new THREE.Scene();
+
+			camera = new THREE.PerspectiveCamera( 70, window.innerWidth/window.innerHeight, 0.1, 1000 );
+			scene.add( camera );
+
+			renderer = new THREE.WebGLRenderer({antialias:true});
+			renderer.setPixelRatio( window.devicePixelRatio );
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.vr.enabled = true;
+			document.body.appendChild( renderer.domElement );
+			
+			// add a crosshair
+			crosshair = new THREE.Mesh(
+				new THREE.RingBufferGeometry( 0.02, 0.04, 32 ),
+				new THREE.MeshBasicMaterial( {
+					color: 0xffffff,
+					opacity: 0.5,
+					transparent: true
+				} )
+			);
+			crosshair.position.z = - 2;
+			camera.add( crosshair );
+
+			// make a VR room
+			room = new THREE.LineSegments(
+				new THREE.BoxLineGeometry( 6, 6, 6, 10, 10, 10 ),
+				new THREE.LineBasicMaterial( { color: 0x808080 } )
+			);
+			room.position.y = 3;
+			scene.add( room );
+
+			// add lights
+			scene.add( new THREE.HemisphereLight( 0x806060, 0x404040 ) );
+
+			var light = new THREE.DirectionalLight( 0xffffff );
+			light.position.set( 1, 1, 1 ).normalize();
+			scene.add( light );
+
+			// add some objetcs to play with
+			var geometry = new THREE.TorusBufferGeometry( .15, .05, 16, 100 );
+
+			for (i=0;i<=num;i++){
+				var material =new THREE.MeshLambertMaterial( { color: Math.random() * 0xffffff } ) ;
+				var object = new THREE.Mesh( geometry, material );
+				// set random position
+				object.position.set(Math.random()*4.0 - 2.0,Math.random()*4.0 - 2.0,Math.random()*4.0 - 2.0 );
+				object.scale.set(Math.random()+.5,Math.random()+.5,Math.random()+.5 );
+				object.rotation.set( Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI, Math.random() * 2 * Math.PI );
+			
+				// create orbit attributes 				
+				// calc distnace as constant and assign to object
+				var a = new THREE.Vector3( 0, 0, 0 );
+				var b = object.position;
+				var d = a.distanceTo( b );
+				object.distance = d;
+				object.radians = Math.random()*360 * Math.PI/180; // initial angle
+				object.radians2 = Math.random()*360 * Math.PI/180; // initial angle
+				object.radians3 = Math.random()*360 * Math.PI/180; // initial angle
+				room.add( object );	
+				objects.push( object ); 
+			}
+
+
+			// handle resize
+			window.addEventListener( 'resize', onWindowResize, false );
+			function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
+			}
+			
+			// three.js webvr button to enter/exit vr mode
+			document.body.appendChild( WEBVR.createButton( renderer ) );
+
+			// start the VR aniamtion loop
+			// instead of usual requestAnimationFrame
+			renderer.setAnimationLoop( render );
+
+
+
+			function render() {
+
+				// find intersections
+				raycaster.setFromCamera( { x: 0, y: 0 }, camera );
+				var intersects = raycaster.intersectObjects( room.children );
+				if ( intersects.length > 0 ) {
+					if ( HIT != intersects[ 0 ].object ) {
+						if ( HIT ) { 
+							HIT.material.emissive.setHex( HIT.currentHex ); 
+						}
+						HIT = intersects[ 0 ].object;
+						HIT.currentHex = HIT.material.emissive.getHex();
+						HIT.material.emissive.setHex( 0x00ff00 );
+					}
+				} else {
+					if ( HIT ){ 
+						HIT.material.emissive.setHex( HIT.currentHex ); 
+					} 
+					HIT = undefined;
+				}
+
+				// animate the objects
+				for (i=0;i<=num;i++){
+					var o = objects[i];
+					o.rotation.y+=.01;
+					if( i % 2 == 0) { 
+						o.radians+=.004;
+						o.radians2+=.005;
+						o.radians3+=.008;
+					} else {
+						o.radians-=.006;
+						o.radians2-=.005;
+						o.radians3-=.003;
+					}
+					o.position.x = (Math.cos(o.radians) * o.distance);
+        			o.position.z = (Math.sin(o.radians3) * o.distance);
+        			o.position.y = (Math.sin(o.radians2) * o.distance*.5);
+
+				}	
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+	</body>
+</html>
