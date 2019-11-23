@@ -11,9 +11,9 @@
 	</head>
 	<body>
 
-		<script src="libs/three.min.js"></script>
-		<script src="libs/WebVR.js"></script>
-		<script src="libs/BoxLineGeometry.js"></script>
+		<script src="../js/vr/three.min.js"></script>
+		<script src="../js/vr/WebVR.js"></script>
+		<script src="../js/vr/BoxLineGeometry.js"></script>
 		<script>
 
 			var clock = new THREE.Clock();
@@ -22,7 +22,7 @@
 			var isMouseDown = false;
 			var objects=[]; // collection of objects
 			var num=100; // number of objects
-			var raycaster = new THREE.Raycaster();
+			raycaster = new THREE.Raycaster();
 
 			
 			
