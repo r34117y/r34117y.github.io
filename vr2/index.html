@@ -14,11 +14,12 @@
 		<script src="../js/vr/three.min.js"></script>
 		<script src="../js/vr/WebVR.js"></script>
 		<script src="../js/vr/BoxLineGeometry.js"></script>
+		<script src="../js/vr/utils.js"></script>
 		<script>
 
 			var clock = new THREE.Clock();
 
-			var container, camera, scene, raycaster, renderer, room, crosshair,HIT;
+			var container, camera, scene, raycaster, renderer, room, crosshair, HIT;
 			var isMouseDown = false;
 			var objects=[]; // collection of objects
 			var num=100; // number of objects
@@ -38,16 +39,7 @@
 			document.body.appendChild( renderer.domElement );
 			
 			// add a crosshair
-			crosshair = new THREE.Mesh(
-				new THREE.RingBufferGeometry( 0.02, 0.04, 32 ),
-				new THREE.MeshBasicMaterial( {
-					color: 0xffffff,
-					opacity: 0.5,
-					transparent: true
-				} )
-			);
-			crosshair.position.z = - 2;
-			camera.add( crosshair );
+			createCrosshair(camera);
 
 			// make a VR room
 			room = new THREE.LineSegments(
