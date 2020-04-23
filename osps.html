@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>OSPS stats</title>
+    <script src="https://unpkg.com/rough-viz@1.0.5"></script>
+    <script src="data/letters_dist_all.js"></script>
+    <style>
+        .wrapper {
+            display: flex;
+            flex: wrap;
+            order: column;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <div id="letters_all"></div>
+</div>
+<div class="wrapper">
+    <div id="lengths"></div>
+</div>
+<script>
+    new roughViz.Bar(
+        {
+            element: '#letters_all',
+            data: letters_dist_all_lv,
+            title: 'Rozkład liter',
+            labels: 'letter',
+            values: 'frequency',
+            width: window.innerWidth,
+            stroke: 'coral',
+            strokeWidth: 3,
+            color: 'pink',
+            fillWeight: 1.5,
+        }
+    );
+    new roughViz.Bar(
+        {
+            element: '#lengths',
+            data: words_length_lv,
+            title: 'Długość wyrazów',
+            labels: 'length',
+            values: 'frequency',
+            width: window.innerWidth,
+            stroke: 'coral',
+            strokeWidth: 3,
+            color: 'pink',
+            fillWeight: 1.5,
+        }
+    );
+</script>
+</body>
+</html>

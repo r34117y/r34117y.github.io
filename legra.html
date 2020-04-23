@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Legra</title>
+    <style>
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #range {
+            position: absolute;
+            top: 540px;
+            display: block;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+<script src="https://unpkg.com/legra?browser"></script>
+<ul>
+    <li><a href="https://glitch.com/edit/#!/legra-click?path=script.js:19:52">Zegar</a> </li>
+</ul>
+<canvas id="image" width="500" height="500"></canvas>
+<input id="range" type="range" min="2" max="30" value="24">
+<script>
+    const ctx = document.querySelector('#image').getContext('2d');
+    const slider = document.getElementById('range');
+
+
+    const loadImage = async (src) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.addEventListener('load', () => {
+                resolve(img);
+            });
+            img.addEventListener('error', () => {
+                reject(new Error('Failed to load image'));
+            });
+            img.addEventListener('abort', () => {
+                reject(new Error('Image load aborted'));
+            });
+            img.src = src;
+        });
+    };
+
+    const drawImage = async () => {
+        try {
+            const legraObj = new legra(ctx, slider.value);
+            const img = await loadImage('img/dream.jpg');
+            ctx.clearRect(0, 0, 600, 600);
+            legraObj.drawImage(img, [0, 0]);
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    slider.addEventListener('input', () => {
+        drawImage();
+    });
+
+    drawImage();
+    /**
+     * const ctxFace = document.querySelector('#face').getContext('2d');
+    const ctxHands = document.querySelector('#hands').getContext('2d');
+
+    const legraHands = new legra(ctxHands, 20);
+    const TWO_PI = Math.PI * 2;
+    const ANGLE_OFFSET = -Math.PI/2;
+    const H_LENGTH = 6;
+    const M_LENGTH = 8;
+    const S_LENGTH = 10;
+
+    function drawFace() {
+        const legraa = new legra(ctxFace, 20);
+        legraa.circle(12, 12, 11, { filled: true, color: '#f5f5f5' });
+        legraa.rectangle(1, 12, 2, 1, {color: '#808080'});
+        legraa.rectangle(22, 12, 2, 1, {color: '#808080'});
+        legraa.rectangle(12, 1, 1, 2, {color: '#808080'});
+        legraa.rectangle(12, 22, 1, 2, {color: '#808080'});
+    }
+
+    function drawHands() {
+        const time = new Date();
+        const h = time.getHours() % 12;
+        const m = time.getMinutes();
+        const s = time.getSeconds();
+
+        const hAngle = ((TWO_PI * h) / 12) + ANGLE_OFFSET;
+        const mAngle = ((TWO_PI * m) / 60) + ANGLE_OFFSET;
+        const sAngle = ((TWO_PI * s) / 60) + ANGLE_OFFSET;
+
+        ctxHands.clearRect(0,0,500,500);
+        legraHands.line(12, 12, 12 + Math.round(H_LENGTH * Math.cos(hAngle)), 12 + Math.round(H_LENGTH  * Math.sin(hAngle)));
+        legraHands.line(12, 12, 12 + Math.round(M_LENGTH * Math.cos(mAngle)), 12 + Math.round(M_LENGTH  * Math.sin(mAngle)), {color: 'red'});
+        legraHands.line(12, 12, 12 + Math.round(S_LENGTH * Math.cos(sAngle)), 12 + Math.round(S_LENGTH  * Math.sin(sAngle)), {color: 'green'});
+    }
+
+    drawFace();
+    setInterval(() => drawHands(), 1000);*/
+</script>
+</body>
+</html>

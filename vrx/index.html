@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebVR Demo - DRAGGING</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <style>
+        html, body { margin: 0; padding:0; overflow: hidden; }
+        #info {
+            position: absolute;
+            top: 10px;
+            width: 100%;
+            text-align: center;
+            z-index: 100;
+            display:block;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/109/three.js"></script>
+<script src="../js/vr/WebVR.js"></script>
+<script src="../js/vr/BoxLineGeometry.js"></script>
+<script src="../js/vr/utils.js"></script>
+<script>
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.set( 0, 0, 10 );
+    camera.lookAt( 0, 0, 0 );
+
+    var renderer = new THREE.WebGLRenderer();
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
+
+    var lineMaterial = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+    var lineGeometry = new THREE.Geometry();
+    lineGeometry.vertices.push(new THREE.Vector3( -10, 0, 0) );
+    lineGeometry.vertices.push(new THREE.Vector3( 0, 10, 0) );
+    lineGeometry.vertices.push(new THREE.Vector3( 10, 0, 0) );
+    var line = new THREE.Line( lineGeometry, lineMaterial );
+    scene.add( line );
+
+    var loader = new THREE.FontLoader();
+    loader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+        var textGeometry = new THREE.TextGeometry( 'r34117y', {
+            font: font,
+            size: 80,
+            height: 5,
+            curveSegments: 12,
+            bevelEnabled: true,
+            bevelThickness: 10,
+            bevelSize: 8,
+            bevelOffset: 0,
+            bevelSegments: 5
+        } );
+
+        scene.add(textGeometry);
+    } );
+
+    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
+    var cube = new THREE.Mesh( geometry, material );
+    scene.add( cube );
+
+    var animate = function () {
+        requestAnimationFrame( animate );
+
+        cube.rotation.x += 0.01;
+        cube.rotation.y += 0.01;
+        if (camera.position.z < 20) {
+            camera.position.z += 0.01;
+        }
+
+        renderer.render( scene, camera );
+    };
+
+    animate();
+</script>
+<div id="info">Description is visible.</div>
+</body>
+</html>

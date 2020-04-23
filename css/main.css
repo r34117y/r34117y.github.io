@@ -1,7 +1,25 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400,500';
+
+body {
+    margin: 0 auto;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    line-height: 1.5;
+    padding: 4em 1em;
+    color: #566b78;
+}
+
+h1,
+h2,
+strong {
+    color: #333;
+}
+
 .container {
     max-width: 38rem!important;
     padding: 2rem;
     margin: auto;
+    padding-left: 320px; /*tyle co szerokość sidenav */
+    text-align: justify;
 }
 
 /* The sidebar menu */
