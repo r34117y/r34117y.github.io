@@ -1,80 +1,44 @@
-window.onload = function () {
-    var w,
-        board,
-        rows,
-        colums;
+let x;
+let y;
+let visited =[];
 
-    function setup() {
-        createCanvas(window.innerWidth, window.innerHeight);
-        w = 20;
-        columns = floor(width/w);
-        rows = floor(height/w);
-        board = new Array(columns);
-
-        for (var i = 0; i < columns; i++) {
-            board[i] = new Array(rows);
-        }
-
-        walker = new Walker();
-    }
-
-    var Walker = function() {
-        this.x = floor(colums / 2);
-        this.y = floor(rows / 2);
-        this.dx = 1;
-        this.dy = 1;
-    };
-
-    Walker.prototype.display = function() {
-        //noStroke();
-        //fill(255,0,0);
-        //ellipse(this.x, this.y, 5,5);
-
-        background(255);
-
-        for ( let i = 0; i < columns;i++) {
-            for ( let j = 0; j < rows;j++) {
-                if ((board[i][j] === 1)) fill(0);
-                else fill(255);
-                stroke(0);
-                rect(i * w, j * w, w-1, w-1);
-            }
-        }
-    };
-
-// Randomly move right, left, down, or up
-    Walker.prototype.walk = function() {
-        var choice = Math.floor(Math.random() * 4);
-        if (choice === 0) {
-            //move right
-            this.x += this.dx;
-        } else if (choice === 1) {
-            //move left
-            this.x -= this.dx;
-        } else if (choice === 2) {
-            //move down
-            this.y += this.dy;
-        } else {
-            //move up
-            this.y -= this.dy;
-        }
-
-        board[this.x][this.y] = 1;
-    };
-
-    Walker.prototype.randomize = function() {
-        this.dx = Math.floor(Math.random() * 10);
-        this.dy = Math.floor(Math.random() * 10);
-    }
-
-    draw = function() {
-        //walker.randomize();
-        walker.walk();
-        walker.display();
-    };
-
-    function mousePressed(){
-        setup();
-    }
+function setup() {
+    var canvas = createCanvas(400, 400);
+    canvas.parent('sketch');
+    x = width / 2;
+    y = height / 2;
+    background(51);
 }
 
+function getMove(xx, yy) {
+    const r = floor(random(4));
+    switch (r) {
+        case 0:
+            xx = xx + 1;
+            break;
+        case 1:
+            xx = xx - 1;
+            break;
+        case 2:
+            yy = yy + 1;
+            break;
+        case 3:
+            yy = yy - 1;
+            break;
+    }
+
+    return [xx, yy]
+}
+
+function draw() {
+    stroke(255, 100);
+    strokeWeight(1);
+    point(x, y);
+    visited.push([x,y]);
+    var newXY = getMove(x,y)
+    while (visited.includes(newXY)) {
+        newXY = getMove();
+    }
+    x = newXY[0];
+    y = newXY[1];
+}
