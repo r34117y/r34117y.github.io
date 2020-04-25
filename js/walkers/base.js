@@ -1,46 +1,52 @@
-let x;
-let y;
-let maxx = 0;
-let maxy = 0;
-let visited =[];
+let walker;
+
+function Walker (x, y, options) {
+    options = options || {}
+    this.x = x;
+    this.y = y;
+    this.dx = options.dx || 1;
+    this.dy = options.dy || 1;
+    /** RGB */
+    this.r = options.r || 255;
+    this.g = options.g || 255;
+    this.b = options.b || 255;
+
+    this.strokeWeight = options.strokeWeight || 2
+    this.draw = function () {
+        stroke(this.r, this.g, this.b);
+        strokeWeight(this.strokeWeight);
+        point(this.x, this.y);
+        var newXY = this.getNextPosition()
+        this.x = newXY[0];
+        this.y = newXY[1];
+    }
+    this.getNextPosition = function () {
+        const r = floor(random(4));
+        switch (r) {
+            case 0:
+                x = this.x + this.dx;
+                break;
+            case 1:
+                x = this.x - this.dx;
+                break;
+            case 2:
+                y = this.y + this.dy;
+                break;
+            case 3:
+                y = this.y - this.dy;
+                break;
+        }
+        return [x,y];
+    }
+}
 
 function setup() {
     var canvas = createCanvas(400, 400);
     canvas.parent('sketch');
-    x = width / 2;
-    y = height / 2;
+    walker = new Walker(width / 2, height / 2)
     background(51);
 }
 
-function getMove(xx, yy) {
-    const r = floor(random(4));
-    switch (r) {
-        case 0:
-            xx = xx + 1;
-            break;
-        case 1:
-            xx = xx - 1;
-            break;
-        case 2:
-            yy = yy + 1;
-            break;
-        case 3:
-            yy = yy - 1;
-            break;
-    }
-
-    return [xx, yy]
-}
-
 function draw() {
-    stroke(255, 100);
-    strokeWeight(1);
-    point(x, y);
-    visited.push([x,y]);
-    var newXY = getMove(x,y)
-    while (visited.includes(newXY)) {
-        newXY = getMove();
-    }
-    x = newXY[0];
-    y = newXY[1];
+    walker.draw();
 }
