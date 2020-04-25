@@ -1,5 +1,7 @@
 let x;
 let y;
+let maxx = 0;
+let maxy = 0;
 let visited =[];
 
 function setup() {
