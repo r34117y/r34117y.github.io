@@ -17,9 +17,6 @@ function Walker (x, y, options) {
     this.r = options.r || 255 / 2;
     this.g = options.g || 255 / 2;
     this.b = options.b || 255 / 2;
-    this.dr = options.dr || 1;
-    this.dg = options.dg || 1;
-    this.db = options.db || 1;
 
     this.strokeWeight = options.strokeWeight || 2
     this.draw = function () {
@@ -32,18 +29,12 @@ function Walker (x, y, options) {
     this.setNextPosition = function () {
         var x = this.x,
             y = this.y;
-        const rand = floor(random(4));
+        const rand = floor(random(2));
         switch (rand) {
             case 0:
-                x = x + this.dx;
-                break;
-            case 1:
-                x = x - this.dx;
-                break;
-            case 2:
                 y = y + this.dy;
                 break;
-            case 3:
+            case 1:
                 y = y - this.dy;
                 break;
         }
@@ -62,29 +53,29 @@ function Walker (x, y, options) {
             x = constrain(x, 0, width);
             y = constrain(y, 0, height);
         }
-        this.x = x;
+        this.x = x + 1;
         this.y = y;
     }
     this.setNextRGB = function () {
         const rand = floor(random(6));
         switch (rand) {
             case 0:
-                this.r += this.dr;
+                this.r += 1;
                 break;
             case 1:
-                this.r -= this.dr;
+                this.r -= 1;
                 break;
             case 2:
-                this.g += this.dg;
+                this.g += 1;
                 break;
             case 3:
-                this.g -= this.dg;
+                this.g -= 1;
                 break;
             case 4:
-                this.b += this.db;
+                this.b += 1;
                 break;
             case 5:
-                this.b -= this.db;
+                this.b -= 1;
                 break;
         }
     }
