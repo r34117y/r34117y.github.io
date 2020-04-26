@@ -9,6 +9,7 @@ function Walker (x, y, options) {
      * - none: pozwolić na wyjście z canvasa
      */
     this.edgeBehavior = options.edgeBehavior || 'closed'
+    this.figure = options.figure || 'point'
     this.x = x;
     this.y = y;
     this.dx = options.dx || 1;
@@ -25,6 +26,13 @@ function Walker (x, y, options) {
     this.draw = function () {
         stroke(this.r, this.g, this.b);
         strokeWeight(this.strokeWeight);
+        switch (this.figure) {
+            case "point":
+                point(this.x, this.y);
+                break;
+            case "circle":
+                circle(this.x, this.y, 20)
+        }
         point(this.x, this.y);
         this.setNextPosition();
         this.setNextRGB();
@@ -96,7 +104,7 @@ function Walker (x, y, options) {
 function setup() {
     var canvas = createCanvas(400, 400);
     canvas.parent('sketch');
-    walker = new Walker(width / 2, height / 2)
+    walker = new Walker(width / 2, height / 2, {figure:'circle'})
     background(51);
 }
 
