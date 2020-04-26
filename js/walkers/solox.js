@@ -79,6 +79,9 @@ function Walker (x, y, options) {
                 break;
         }
     }
+    this.r = constrain(this.r, 0, 255);
+    this.g = constrain(this.g, 0, 255);
+    this.b = constrain(this.b, 0, 255);
 }
 
 function setup() {

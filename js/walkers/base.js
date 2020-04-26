@@ -87,6 +87,9 @@ function Walker (x, y, options) {
                 this.b -= this.db;
                 break;
         }
+        this.r = constrain(this.r, 0, 255);
+        this.g = constrain(this.g, 0, 255);
+        this.b = constrain(this.b, 0, 255);
     }
 }
 
