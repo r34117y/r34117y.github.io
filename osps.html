@@ -6,12 +6,15 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="stylesheet" href="css/wdin4minutes.css">
-    <script src="https://unpkg.com/rough-viz@1.0.5"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="data/letters_dist_all.js"></script>
     <title>r34117y - lcd</title>
 </head>
 <body>
 <div class="container">
+    <div class="center">
+        <p>Rozkład liter w worku zna każdy gracz, a jak wygląda rozkład liter we wszystkich wyrazach dostępnych w słowniku? Rozkład dla języka angielskiego można zobaczyć <a href="https://observablehq.com/@d3/bar-chart">tutaj</a>.</p>
+    </div>
     <div class="center">
         <div id="letters_all"></div>
     </div>
@@ -23,34 +26,28 @@
     </div>
 </div>
 <script>
-    new roughViz.Bar(
-        {
-            element: '#letters_all',
-            data: letters_dist_all_lv,
-            title: 'Rozkład liter',
-            labels: 'letter',
-            values: 'frequency',
-            width: window.innerWidth / 2,
-            stroke: 'coral',
-            strokeWidth: 3,
-            color: 'pink',
-            fillWeight: 1.5,
-        }
-    );
-    new roughViz.Bar(
-        {
-            element: '#lengths',
-            data: words_length_lv,
-            title: 'Długość wyrazów',
-            labels: 'length',
-            values: 'frequency',
-            width: window.innerWidth / 2,
-            stroke: 'coral',
-            strokeWidth: 3,
-            color: 'pink',
-            fillWeight: 1.5,
-        }
-    );
+    chart = {
+        const svg = d3.create("svg")
+            .attr("viewBox", [0, 0, width, height]);
+
+        svg.append("g")
+            .attr("fill", color)
+            .selectAll("rect")
+            .data(data)
+            .join("rect")
+            .attr("x", (d, i) => x(i))
+            .attr("y", d => y(d.value))
+            .attr("height", d => y(0) - y(d.value))
+            .attr("width", x.bandwidth());
+
+        svg.append("g")
+            .call(xAxis);
+
+        svg.append("g")
+            .call(yAxis);
+
+        return svg.node();
+    }
 </script>
 </body>
 </html>
