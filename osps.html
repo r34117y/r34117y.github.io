@@ -1,24 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>OSPS stats</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/wdin4minutes.css">
     <script src="https://unpkg.com/rough-viz@1.0.5"></script>
     <script src="data/letters_dist_all.js"></script>
-    <style>
-        .wrapper {
-            display: flex;
-            flex: wrap;
-            order: column;
-        }
-    </style>
+    <title>r34117y - lcd</title>
 </head>
 <body>
-<div class="wrapper">
-    <div id="letters_all"></div>
-</div>
-<div class="wrapper">
-    <div id="lengths"></div>
+<div class="container">
+    <div class="center">
+        <div id="letters_all"></div>
+    </div>
+    <div class="center">
+        <div id="lengths"></div>
+    </div>
+    <div class="center">
+        <div id="base_lenght"></div>
+    </div>
 </div>
 <script>
     new roughViz.Bar(
@@ -28,7 +30,7 @@
             title: 'Rozkład liter',
             labels: 'letter',
             values: 'frequency',
-            width: window.innerWidth,
+            width: window.innerWidth / 2,
             stroke: 'coral',
             strokeWidth: 3,
             color: 'pink',
@@ -42,7 +44,7 @@
             title: 'Długość wyrazów',
             labels: 'length',
             values: 'frequency',
-            width: window.innerWidth,
+            width: window.innerWidth / 2,
             stroke: 'coral',
             strokeWidth: 3,
             color: 'pink',
