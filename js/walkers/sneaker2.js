@@ -129,12 +129,14 @@ function setup() {
 }
 
 function draw() {
-    background(24);
-    food.draw()
-    snake.draw();
-    snake.updateSegments();
-    snake.checkGameStatus();
-    snake.tryEatFood();
+    if (! paused) {
+        background(24);
+        food.draw()
+        snake.draw();
+        snake.updateSegments();
+        snake.checkGameStatus();
+        snake.tryEatFood();
+    }
 }
 
 function keyPressed() {
@@ -161,3 +163,14 @@ function keyPressed() {
             break;
     }
 }
+
+var resetBtn = document.getElementById('btn-reset');
+resetBtn.addEventListener('click', function () {
+    clear()
+    pause = false;
+    food = new Food();
+    food.updateCoordinates()
+
+    snake = new Snake()
+    snake.initSegments()
+});

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/css/ol.css" type="text/css">
+    <style>
+        .map {
+            height: 100%;
+            width: 100%;
+            position: fixed;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.3.1/build/ol.js"></script>
+    <title>r34117y - map</title>
+</head>
+
+<body>
+<div>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a href="/" class="navbar-brand">r34117y</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="#" class="nav-item nav-link active">About</a>
+            </div>
+            <form class="form-inline ml-auto">
+                <input type="text" id="srcText" class="form-control mr-sm-2" placeholder="Search" value="love">
+                <button type="button" onclick="doTranslate()" class="btn btn-outline-light">Translate</button>
+            </form>
+            <div class="navbar-nav">
+                <button class="btn btn-outline-light" id="export-png"><i class="fa fa-download"></i> Download PNG</button>
+                <a id="image-download" download="map.png"></a>
+            </div>
+        </div>
+    </nav>
+    <div id="map" class="map"></div>
+</div>
+<script src="js/map.js"></script>
+</body>
+</html>
