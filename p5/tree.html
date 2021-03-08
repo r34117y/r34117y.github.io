@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://github.com/processing/p5.js/releases/download/1.0.0/p5.min.js"></script>
+    <title>r34117y - dots</title>
+</head>
+
+<body>
+<script>
+    let angle
+    let angleSlider
+    /**
+     * Jako pierwszy stosunek 1/squrt(2) został uznany za znaczący
+     * przez Polikleta w jego "Kanonie". Rzeźbiarz na jego podstawie
+     * ustalał proporcje swoich rzeźb
+     **/
+    let lengthFactor = Math.SQRT1_2
+    let lengthSlider
+    let startWeight = 11
+    let minLength = 80
+    let red = 50
+    let green = 50
+    let blue = 50
+    function setup() {
+        createCanvas(800, 600)
+        angleSlider = createSlider(0, TWO_PI, PI / 4, 0.01)
+        angleSlider.position(10,620)
+        angleSlider.width = 300
+        angleSlider.size(590)
+
+        lengthSlider = createSlider(8, 150, minLength, 1)
+        lengthSlider.position(10,660)
+        lengthSlider.width = 300
+        lengthSlider.size(590)
+
+        lengthFactorSlider = createSlider(0.5, 0.9, lengthFactor, 0.01)
+        lengthFactorSlider.position(10,700)
+        lengthFactorSlider.width = 300
+        lengthFactorSlider.size(590)
+    }
+    function draw() {
+        background(0)
+        /**
+         * translate(x,y) ustawia nowe (0,0)
+         * tutaj: środek w osi x i y = wysokość (czyli punkt na samym dole)
+         */
+        translate(width / 2, height)
+        angle = angleSlider.value()/2
+        minLength = lengthSlider.value()
+        lengthFactor = lengthFactorSlider.value()
+        branch(150, startWeight)
+        translate(0, -150)
+    }
+    function branch(length, weightIn) {
+        switch (weightIn) {
+            case 11:
+                red = 255; green = 0; blue = 0;
+                break;
+            case 10:
+                red = 0; green = 255; blue = 0;
+                break;
+            case 9:
+                red = 0; green = 0; blue = 255;
+                break;
+            case 8:
+                red = 150; green = 50; blue = 50;
+                break;
+            case 7:
+                red = 255; green = 255; blue = 0;
+                break;
+        }
+        stroke(red, green, blue)
+        let weight = weightIn - 1
+        strokeWeight(weight)
+        //pionowa linia do góry
+        line(0,0,0, -length)
+        // ustawiamy (0,0) tam, gdzie kończy się narysowana właśnie linia
+        translate(0, -length)
+        if (length > minLength) {
+            //Zapisz obecne ustawienia rysowania
+            push()
+            // obracamy zgodnie ze wskazówkami zegara
+            rotate(angle)
+            branch(length * lengthFactor, weight)
+            pop()
+            push()
+            rotate(-angle)
+            branch(length * lengthFactor, weight)
+            pop()
+        }
+    }
+</script>
+</body>
+</html>

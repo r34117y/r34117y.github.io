@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://github.com/processing/p5.js/releases/download/1.0.0/p5.min.js"></script>
+    <title>r34117y - dots</title>
+</head>
+
+<body>
+<script>
+    var word;
+    var font;
+    function preload() {
+        font = loadFont('assets/inconsolata.otf');
+    }
+
+    function setup() {
+        createCanvas(windowWidth, windowHeight, WEBGL);
+        textSize(64);
+        textAlign(CENTER, CENTER);
+        word = new Word('unity');
+    }
+
+    function draw() {
+        background(0);
+        let time = millis();
+        rotateX(time / 1000);
+        rotateZ(time / 1234);
+        text(word.word, 0, 0);
+    }
+
+    function mousePressed() {
+        word.word = 'pressed'
+    }
+
+    function Word(word) {
+        this.word = word;
+    }
+
+    Word.prototype.draw = function() {
+        push();
+        translate(this.x, this.y);
+        noStroke();
+        fill(255);
+        quad(this.j,0,this.j+25,0,this.j+25,height,this.j,height);
+        this.x = this.x + this.k;
+        if(this.x > widthExtra){
+            this.x = -u;
+        }
+        if(this.x < -u){
+            this.x = widthExtra;
+        }
+        pop();
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+    }
+</script>
+</body>
+</html>
