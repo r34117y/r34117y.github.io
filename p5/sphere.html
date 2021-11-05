@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="pl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://github.com/processing/p5.js/releases/download/1.0.0/p5.min.js"></script>
+    <title>r34117y - breathing sphere</title>
+</head>
+
+<body>
+<script>
+    function setup() {
+        createCanvas(windowWidth, windowHeight, WEBGL);
+        sSize = createSlider(16, 160, 16);
+        sSize.position(10, height + 5);
+        sSize.style('width', '80px');
+    }
+
+    function draw() {
+        background(205, 105, 94);
+        rotateY(millis() / 1000);
+        sphere(sSize.value(), 24, 24);
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+    }
+</script>
+</body>
+</html>

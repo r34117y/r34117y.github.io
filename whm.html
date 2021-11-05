@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" href="css/wdin4minutes.css">
+    <title>r34117y - whm</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="center">
+        <h1><a class="logo" href="index.html">r34117y</a></h1>
+        <h1>whm</h1>
+        <hr>
+    </div>
+    <div class="center">
+        <button id="beepStart">Bipaj</button>
+        <button id="beepStop">Przestań bipać</button>
+    </div>
+</div>
+<script>
+    audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
+    const startBtn = document.getElementById('beepStart');
+    startBtn.addEventListener('click', beepStart)
+    const stopBtn = document.getElementById('beepStop');
+    stopBtn.addEventListener('click', beepStop)
+    var currentIntervalId;
+
+    function beep(duration, frequency, volume, type, callback) {
+        var oscillator = audioCtx.createOscillator();
+        var gainNode = audioCtx.createGain();
+
+        oscillator.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+
+        if (volume){gainNode.gain.value = volume;}
+        if (frequency){oscillator.frequency.value = frequency;}
+        if (type){oscillator.type = type;}
+        if (callback){oscillator.onended = callback;}
+
+        oscillator.start(audioCtx.currentTime);
+        oscillator.stop(audioCtx.currentTime + ((duration || 500) / 1000));
+    };
+
+    function beepStart() {
+        if (! currentIntervalId) {
+            currentIntervalId = window.setInterval(function () {
+                beep(500, 440, 1, 'sine')
+            }, 2000)
+        }
+    }
+
+    function beepStop() {
+        if (currentIntervalId) {
+            window.clearInterval(currentIntervalId)
+            currentIntervalId = null;
+        }
+    }
+</script>
+</body>
+</html>
