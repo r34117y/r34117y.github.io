@@ -7,21 +7,38 @@
     <meta name="author" content="">
     <script src="https://github.com/processing/p5.js/releases/download/1.0.0/p5.min.js"></script>
     <title>r34117y - mosaic1</title>
+    <style>
+        html, body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
 <script>
     let arr = [];
     let gridSize = 15;
-    let cellSize;
+    let cellWidth;
+    let cellHeight;
+
+    function updateGridMetrics() {
+        cellWidth = width / gridSize;
+        cellHeight = height / gridSize;
+    }
 
     function setup() {
-        createCanvas(window.innerHeight, window.innerHeight);
-
-        cellSize = height / gridSize;
+        createCanvas(windowWidth, windowHeight);
+        updateGridMetrics();
 
         for(let i =0; i < gridSize ** 2; i++){
-            arr.push([random(cellSize), random(cellSize)]);
+            arr.push([random(cellWidth), random(cellHeight)]);
         }
 
     }
@@ -33,13 +50,13 @@
 
         for (let y = 0; y < gridSize; y++) {
             for (let x = 0; x < gridSize; x++) {
-                let xpos = x * cellSize;
-                let ypos = y * cellSize;
+                let xpos = x * cellWidth;
+                let ypos = y * cellHeight;
 
                 let index = y * gridSize + x; // find the index
-                //inside(xpos, ypos, cellSize, cellSize) ? fill(255,0,0) : fill(255);
+                //inside(xpos, ypos, cellWidth, cellHeight) ? fill(255,0,0) : fill(255);
 
-                //rect(xpos, ypos, cellSize, cellSize);
+                //rect(xpos, ypos, cellWidth, cellHeight);
 
                 //let h = map(index, 0, gridSize ** 2, 0, 255);
                 //fill(h, h, h);
@@ -54,12 +71,12 @@
     }
 
     function drawLine(xpos, ypos, dx, dy) {
-        dx = (dx + frameCount) % cellSize;
-        dy = (dy + frameCount) % cellSize;
+        dx = (dx + frameCount) % cellWidth;
+        dy = (dy + frameCount) % cellHeight;
         // linia pionowa
-        //line(xpos + dx, ypos, xpos + dx, ypos + cellSize)
+        //line(xpos + dx, ypos, xpos + dx, ypos + cellHeight)
         // linia pozioma
-        //line(xpos, ypos + dy, xpos + cellSize, ypos + dy)
+        //line(xpos, ypos + dy, xpos + cellWidth, ypos + dy)
         //linie tworzą cztery kwadraty. należy je pokolorować
 
         // górny lewy
@@ -67,14 +84,19 @@
         rect(xpos, ypos, dx, dy)
         // górny prawy
         fill(random(255), 255, random(255))
-        rect(xpos + dx, ypos, cellSize - dx, dy)
+        rect(xpos + dx, ypos, cellWidth - dx, dy)
         // dolny lewy
         fill(255, random(255), random(255))
-        rect(xpos, ypos + dy, dx, cellSize - dy)
+        rect(xpos, ypos + dy, dx, cellHeight - dy)
     }
 
     function inside(x, y, w, h){
         return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
+    }
+
+    function windowResized() {
+        resizeCanvas(windowWidth, windowHeight);
+        updateGridMetrics();
     }
 </script>
 </body>
