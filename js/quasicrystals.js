@@ -79,5 +79,5 @@ function draw() {
     quasicrystalShader.setUniform('uColoring', coloring);
     quasicrystalShader.setUniform('uDirections', directionVectors);
 
-    rect(0, 0, width, height);
+    rect(-width / 2, -height / 2, width, height);
 }

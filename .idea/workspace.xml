@@ -5,15 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c63986b3-640b-4132-9e75-13ab44bd33fa" name="Changes" comment="quasicrystals refactor">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/r34117y.github.io.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/css/quasicrystals.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/quasicrystals.frag" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/js/quasicrystals.vert" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/quasicrystals.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/quasicrystals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quasicrystals.html" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +64,7 @@
       <workItem from="1758863017191" duration="10033000" />
       <workItem from="1762273523450" duration="635000" />
       <workItem from="1762939797763" duration="12000" />
-      <workItem from="1779793378742" duration="1674000" />
+      <workItem from="1779793378742" duration="1976000" />
     </task>
     <task id="LOCAL-00001" summary="quasicrystals refactor">
       <option name="closed" value="true" />
@@ -90,7 +82,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779794148246</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="quasicrystals refactor">
+      <option name="closed" value="true" />
+      <created>1779795054595</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1779795054595</updated>
+    </task>
+    <task id="LOCAL-00004" summary="quasicrystals refactor">
+      <option name="closed" value="true" />
+      <created>1779795262331</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1779795262331</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
