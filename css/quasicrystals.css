@@ -9,9 +9,14 @@
 }
 
 .references-panel {
-    position: fixed;
-    z-index: 999;
-    width: 280px;
+    display: none;
+}
+
+.references-panel.is-mounted {
+    display: block;
+    margin: 8px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .modal-trigger {
@@ -123,10 +128,6 @@ body {
 }
 
 @media (max-width: 768px) {
-    .references-panel {
-        width: min(280px, calc(100vw - 1.5rem));
-    }
-
     .lil-gui.root {
         top: 0.75rem;
         right: 0.75rem;

@@ -15,24 +15,22 @@
 <body>
 <div id="sketch"></div>
 <div class="references-panel" id="references-panel">
-    <button class="modal-trigger" id="references-button" type="button">References</button>
+    <button class="modal-trigger" id="references-button" type="button">Info</button>
 </div>
 <dialog class="links-modal" id="references-modal">
     <div class="links-modal__content">
         <div class="links-modal__header">
-            <h1><a class="logo" href="index.html">r34117y</a></h1>
-            <h1>hypnagogic quasicrystals</h1>
-            <h2 class="links-modal__title">Further Reading</h2>
+            <h2 class="links-modal__title"><a class="logo" href="index.html">r34117y</a></h2>
             <button class="links-modal__close" id="references-close" type="button" aria-label="Close references">&times;</button>
         </div>
+        <h2>hypnagogic quasicrystals</h2>
+        <hr>
+        <h2>Further Reading</h2>
         <ul>
-            <li><a href="http://mainisusuallyafunction.blogspot.com/2011/10/quasicrystals-as-sums-of-waves-in-plane.html">Werja Haskell</a> </li>
-            <li><a href="https://www.jasondavies.com/animated-quasicrystals/">Wersja WebGL</a></li>
-            <li><a href="http://wealoneonearth.blogspot.com/search/label/quasicrystal">Wersja Java</a></li>
-            <li><a href="http://discovermagazine.com/2009/feb/14-what-is-this-psychedelic-place-mat">Artykuł w discover</a></li>
-            <li><a href="http://discovermagazine.com/2008/jan/math-breakthrough-spotted-on-mosques">HK w sztuce islamu</a></li>
-            <li><a href="http://discovermagazine.com/2008/jan/math-breakthrough-spotted-on-mosques">O HK</a></li>
-            <li><a href="https://pl.wikipedia.org/wiki/Kwazikryszta%C5%82">Wiki pl</a></li>
+            <li><a href="http://mainisusuallyafunction.blogspot.com/2011/10/quasicrystals-as-sums-of-waves-in-plane.html">Introduction with Haskell</a> </li>
+            <li><a href="https://www.jasondavies.com/animated-quasicrystals/">WebGL Version (just as this one)</a></li>
+            <li><a href="http://wealoneonearth.blogspot.com/search/label/quasicrystal">Java Version</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Quasicrystal">Wikipedia article</a></li>
             <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4594519/">Subcellular neuronal quasicrystals: Implications for consciousness</a></li>
             <li><a href="https://quantumgravityresearch.org/portfolio/quasicrystalline-nature-of-consciousness-in-the-universe">The Quasicrystalline Nature of Consciousness in the Universe</a></li>
         </ul>
@@ -43,20 +41,6 @@
         var modal = document.getElementById('references-modal');
         var openButton = document.getElementById('references-button');
         var closeButton = document.getElementById('references-close');
-        var referencesPanel = document.getElementById('references-panel');
-
-        function positionReferencesPanel() {
-            var gui = document.querySelector('.lil-gui.root');
-            var right = window.innerWidth <= 768 ? 12 : 20;
-            var top = window.innerWidth <= 768 ? 12 : 20;
-
-            if (gui) {
-                top = gui.offsetTop + gui.offsetHeight + 12;
-            }
-
-            referencesPanel.style.top = top + 'px';
-            referencesPanel.style.right = right + 'px';
-        }
 
         openButton.addEventListener('click', function () {
             modal.showModal();
@@ -71,10 +55,6 @@
                 modal.close();
             }
         });
-
-        positionReferencesPanel();
-        window.addEventListener('resize', positionReferencesPanel);
-        window.setTimeout(positionReferencesPanel, 0);
     }());
 </script>
 </body>

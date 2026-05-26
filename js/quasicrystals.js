@@ -64,6 +64,13 @@ function setup() {
     gui.add(controls, 'tempo', 0.1, 1.0, 0.1).name('Tempo').onChange(syncParameters);
     gui.add(controls, 'coloring', ['Grayscale', 'Spectrum']).name('Palette').onChange(syncParameters);
     gui.add(controls, 'quality', 0.5, 1.0, 0.05).name('Render Scale').onChange(syncParameters);
+
+    var referencesPanel = document.getElementById('references-panel');
+
+    if (referencesPanel) {
+        referencesPanel.classList.add('is-mounted');
+        gui.domElement.appendChild(referencesPanel);
+    }
 }
 
 function windowResized() {
