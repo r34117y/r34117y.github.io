@@ -52,17 +52,9 @@
             for (let x = 0; x < gridSize; x++) {
                 let xpos = x * cellWidth;
                 let ypos = y * cellHeight;
-
                 let index = y * gridSize + x; // find the index
-                //inside(xpos, ypos, cellWidth, cellHeight) ? fill(255,0,0) : fill(255);
-
-                //rect(xpos, ypos, cellWidth, cellHeight);
-
-                //let h = map(index, 0, gridSize ** 2, 0, 255);
-                //fill(h, h, h);
                 strokeWeight(1)
                 drawLine(xpos, ypos, arr[index][0], arr[index][1])
-                //text(arr[index][0], xpos, ypos, cellSize, cellSize);
             }
         }
 
@@ -73,11 +65,6 @@
     function drawLine(xpos, ypos, dx, dy) {
         dx = (dx + frameCount) % cellWidth;
         dy = (dy + frameCount) % cellHeight;
-        // linia pionowa
-        //line(xpos + dx, ypos, xpos + dx, ypos + cellHeight)
-        // linia pozioma
-        //line(xpos, ypos + dy, xpos + cellWidth, ypos + dy)
-        //linie tworzą cztery kwadraty. należy je pokolorować
 
         // górny lewy
         fill(random(255), random(255), 255)
@@ -88,10 +75,6 @@
         // dolny lewy
         fill(255, random(255), random(255))
         rect(xpos, ypos + dy, dx, cellHeight - dy)
-    }
-
-    function inside(x, y, w, h){
-        return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h;
     }
 
     function windowResized() {
