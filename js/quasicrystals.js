@@ -1,119 +1,83 @@
-var dimPix = 0.4,
+var MAX_LAYERS = 128,
+    dimPix = 0.4,
     layers = 7,
-    xPixMax,
-    yPixMax,
     canvas,
-    sums = [],
+    quasicrystalShader,
     tempoFactor = 0.2,
     coloring = 1,
     gui,
+    directionVectors = [],
     controls = {
         layers: 7,
         tempo: 0.2,
-        coloring: 'Grayscale'
+        coloring: 'Grayscale',
+        quality: 1
     };
 
 var orientationDelta = Math.PI / layers;
+
+function preload() {
+    quasicrystalShader = loadShader('js/quasicrystals.vert', 'js/quasicrystals.frag');
+}
 
 function syncParameters() {
     layers = controls.layers;
     tempoFactor = controls.tempo;
     coloring = controls.coloring === 'Spectrum' ? 2 : 1;
     orientationDelta = Math.PI / layers;
+    rebuildLayerDirections();
+    resizeRenderer();
 }
 
+function rebuildLayerDirections() {
+    directionVectors = [];
+
+    for (var i = 0; i < MAX_LAYERS; i++) {
+        if (i < layers) {
+            var orientation = i * orientationDelta;
+
+            directionVectors.push(cos(orientation), sin(orientation));
+        } else {
+            directionVectors.push(0, 0);
+        }
+    }
+}
+
+function resizeRenderer() {
+    var renderWidth = max(1, floor(windowWidth * controls.quality));
+    var renderHeight = max(1, floor(windowHeight * controls.quality));
+
+    resizeCanvas(renderWidth, renderHeight);
+    canvas.elt.style.width = '100vw';
+    canvas.elt.style.height = '100vh';
+}
 
 function setup() {
-    canvas = createCanvas(200, 200);
+    pixelDensity(1);
+    canvas = createCanvas(1, 1, WEBGL);
     canvas.parent('sketch');
-    background(0); // białe tło
+    noStroke();
     syncParameters();
+
     gui = new lil.GUI({ title: 'Parameters' });
     gui.add(controls, 'layers', 1, 100, 1).name('Layers').onChange(syncParameters);
     gui.add(controls, 'tempo', 0.1, 1.0, 0.1).name('Tempo').onChange(syncParameters);
     gui.add(controls, 'coloring', ['Grayscale', 'Spectrum']).name('Palette').onChange(syncParameters);
+    gui.add(controls, 'quality', 0.5, 1.0, 0.05).name('Render Scale').onChange(syncParameters);
+}
 
-    xPixMax = width / 2;
-    yPixMax = height / 2;
-    //xPixMax = width;
-    //yPixMax = height;
-
-    //ładuje piksele do tablicy pixels
-    //jest to płaska tablica o długości 4*ilość pikseli
-    //R,G,B,alfa (?)
-    loadPixels();
+function windowResized() {
+    resizeRenderer();
 }
 
 function draw() {
-    //frameCont zawiera liczbę wyświetlonych klatek od uruchomienia
-    //z tego będzie brany cosinus, więc jest to jakby niezależna przechodząca fala
-    var tempo = frameCount * tempoFactor;
+    shader(quasicrystalShader);
+    quasicrystalShader.setUniform('uResolution', [width, height]);
+    quasicrystalShader.setUniform('uTime', frameCount * tempoFactor);
+    quasicrystalShader.setUniform('uDimPix', dimPix);
+    quasicrystalShader.setUniform('uLayerCount', layers);
+    quasicrystalShader.setUniform('uColoring', coloring);
+    quasicrystalShader.setUniform('uDirections', directionVectors);
 
-    var iPix = 0;
-    for (var yPix = -yPixMax; yPix < yPixMax; yPix++) {
-        var y = yPix * dimPix;
-
-        //iPix += 4, bo tablica pixels jest płaska
-        //foreach pixel:
-        for (var xPix = -xPixMax; xPix < xPixMax; xPix++, iPix += 4) {
-            var x = xPix * dimPix;
-
-            var orientation = 0.0,
-                sinus,
-                current,
-                cosinus,
-                sum = 0;
-
-            for (var i = 0; i < layers; i++) {
-                // sin(0) = sin(PI) = sin(2*PI) = 0, sin(PI/2) = 1, sin(3*PI/2) = -1
-                // cos przesunięty o PI/2
-                // zakres: [-1,1]
-                sinus = sin(orientation);
-                cosinus = cos(orientation);
-                sum += (cos(cosinus * x + sinus * y + tempo) + 1.0) / 2.0; //zakres [0,1]
-                orientation += orientationDelta;
-            }
-            // sums - zakres [0,layers-1]
-
-            var integerSum = floor(sum);
-            var decimalSum = sum - integerSum;
-            //sum = (integerSum % 2) === 0 ? 1 : 0;
-
-            switch (coloring) {
-                case 1:
-                    sum = (integerSum % 2) === 0 ? decimalSum : 1.0 - decimalSum;
-                    coloringGray(sum, iPix);
-                    break;
-                case 2:
-                    sum = decimalSum;
-                    coloringRgb(sum, iPix);
-                    break;
-            }
-        }
-    }
-    updatePixels();
-}
-
-function coloringGray(sum, iPix) {
-    var grey = sum * 256;
-    pixels[iPix] = grey;
-    pixels[iPix + 1] = grey;
-    pixels[iPix + 2] = grey;
-}
-
-function coloringRgb(sum, iPix) {
-    var grey = sum * 256;
-    if (sum < (1 / 2)) {
-        pixels[iPix] = grey;
-        pixels[iPix + 1] = 0;
-        pixels[iPix + 2] = 0;
-    } else if (sum < (3/4)) {
-        pixels[iPix] = 0;
-        pixels[iPix + 1] = grey;
-        pixels[iPix + 2] = 0;
-    } else {
-        pixels[iPix] = 0;
-        pixels[iPix + 1] = 0;
-        pixels[iPix + 2] = grey;
-    }
+    rect(0, 0, width, height);
 }
