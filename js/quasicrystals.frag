@@ -32,15 +32,22 @@ void main() {
         float grey = mod(integerSum, 2.0) == 0.0 ? decimalSum : 1.0 - decimalSum;
         color = vec3(grey);
     } else {
-        float grey = decimalSum;
+        float t = smoothstep(0.0, 1.0, decimalSum);
 
-        if (grey < 0.5) {
-            color = vec3(grey, 0.0, 0.0);
-        } else if (grey < 0.75) {
-            color = vec3(0.0, grey, 0.0);
+        if (t < 0.33) {
+            float blend = smoothstep(0.0, 0.33, t);
+            color = mix(vec3(1.0, 0.1, 0.2), vec3(1.0, 0.85, 0.1), blend);
+        } else if (t < 0.66) {
+            float blend = smoothstep(0.33, 0.66, t);
+            color = mix(vec3(1.0, 0.85, 0.1), vec3(0.0, 0.9, 0.45), blend);
         } else {
-            color = vec3(0.0, 0.0, grey);
+            float blend = smoothstep(0.66, 1.0, t);
+            color = mix(vec3(0.0, 0.9, 0.45), vec3(0.15, 0.35, 1.0), blend);
         }
+
+        color = pow(color, vec3(0.85));
+        color *= 1.15;
+        color = clamp(color, 0.0, 1.0);
     }
 
     gl_FragColor = vec4(color, 1.0);
