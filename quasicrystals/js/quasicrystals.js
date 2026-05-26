@@ -17,7 +17,7 @@ var MAX_LAYERS = 128,
 var orientationDelta = Math.PI / layers;
 
 function preload() {
-    quasicrystalShader = loadShader('js/quasicrystals.vert', 'js/quasicrystals.frag');
+    quasicrystalShader = loadShader('quasicrystals/js/quasicrystals.vert', 'quasicrystals/js/quasicrystals.frag');
 }
 
 function syncParameters() {

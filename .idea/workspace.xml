@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c63986b3-640b-4132-9e75-13ab44bd33fa" name="Changes" comment="quasicrystals refactor">
+    <list default="true" id="c63986b3-640b-4132-9e75-13ab44bd33fa" name="Changes" comment="cons refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/css/quasicrystals.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/quasicrystals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/js/quasicrystals.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/quasicrystals.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/quasicrystals.html" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/css/quasicrystals.css" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals/css/quasicrystals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/quasicrystals.frag" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals/js/quasicrystals.frag" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/quasicrystals.js" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals/js/quasicrystals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/quasicrystals.vert" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals/js/quasicrystals.vert" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quasicrystals.html" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals/quasicrystals.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +50,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/quasicrystals/js" />
+      <recent name="$PROJECT_DIR$/quasicrystals/css" />
+      <recent name="$PROJECT_DIR$/quasicrystals" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -67,7 +77,7 @@
       <workItem from="1758863017191" duration="10033000" />
       <workItem from="1762273523450" duration="635000" />
       <workItem from="1762939797763" duration="12000" />
-      <workItem from="1779793378742" duration="4763000" />
+      <workItem from="1779793378742" duration="5422000" />
     </task>
     <task id="LOCAL-00001" summary="quasicrystals refactor">
       <option name="closed" value="true" />
@@ -125,7 +135,23 @@
       <option name="project" value="LOCAL" />
       <updated>1779796588187</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="quasicrystals refactor">
+      <option name="closed" value="true" />
+      <created>1779798145398</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1779798145398</updated>
+    </task>
+    <task id="LOCAL-00009" summary="cons refactor">
+      <option name="closed" value="true" />
+      <created>1779798432998</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1779798432998</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -133,6 +159,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="quasicrystals refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="quasicrystals refactor" />
+    <MESSAGE value="cons refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="cons refactor" />
   </component>
 </project>
