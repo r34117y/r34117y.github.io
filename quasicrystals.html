@@ -16,8 +16,87 @@
             justify-content: center;
         }
 
+        .actions {
+            display: flex;
+            justify-content: center;
+            margin: 1.5rem 0 0;
+        }
+
+        .modal-trigger {
+            appearance: none;
+            border: 1px solid rgba(15, 23, 42, 0.12);
+            border-radius: 999px;
+            background: linear-gradient(135deg, #0f172a, #1d4ed8);
+            color: #f8fafc;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            padding: 0.8rem 1.35rem;
+            box-shadow: 0 14px 28px rgba(29, 78, 216, 0.22);
+            transition: transform 0.16s ease, box-shadow 0.16s ease, opacity 0.16s ease;
+        }
+
+        .modal-trigger:hover,
+        .modal-trigger:focus-visible {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 36px rgba(29, 78, 216, 0.3);
+            opacity: 0.98;
+        }
+
         body {
             position: relative;
+        }
+
+        .links-modal {
+            width: min(42rem, calc(100vw - 2rem));
+            border: 0;
+            border-radius: 22px;
+            padding: 0;
+            background: #ffffff;
+            box-shadow: 0 28px 80px rgba(15, 23, 42, 0.28);
+        }
+
+        .links-modal::backdrop {
+            background: rgba(15, 23, 42, 0.58);
+            backdrop-filter: blur(8px);
+        }
+
+        .links-modal__content {
+            padding: 1.5rem 1.5rem 1.25rem;
+        }
+
+        .links-modal__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .links-modal__title {
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .links-modal__close {
+            appearance: none;
+            border: 0;
+            background: transparent;
+            color: #334155;
+            cursor: pointer;
+            font-size: 1.75rem;
+            line-height: 1;
+            padding: 0.2rem 0.35rem;
+        }
+
+        .links-modal ul {
+            margin: 0;
+            padding-left: 1.2rem;
+        }
+
+        .links-modal li + li {
+            margin-top: 0.5rem;
         }
 
         .lil-gui.root {
@@ -55,22 +134,48 @@
     <hr>
 </div>
 <div id="sketch"></div>
-<div>
-    <ul>
-        <li><a href="http://mainisusuallyafunction.blogspot.com/2011/10/quasicrystals-as-sums-of-waves-in-plane.html">Werja Haskell</a> </li>
-        <li><a href="https://www.jasondavies.com/animated-quasicrystals/">Wersja WebGL</a></li>
-        <li><a href="http://wealoneonearth.blogspot.com/search/label/quasicrystal">Wersja Java</a></li>
-        <li><a href="http://discovermagazine.com/2009/feb/14-what-is-this-psychedelic-place-mat">Artykuł w discover</a></li>
-        <li><a href="http://discovermagazine.com/2008/jan/math-breakthrough-spotted-on-mosques">HK w sztuce islamu</a></li>
-        <li><a href="http://discovermagazine.com/2008/jan/math-breakthrough-spotted-on-mosques">O HK</a></li>
-        <li><a href="https://pl.wikipedia.org/wiki/Kwazikryszta%C5%82">Wiki pl</a></li>
-        <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4594519/">Subcellular neuronal quasicrystals: Implications for consciousness</a></li>
-        <li><a href="https://quantumgravityresearch.org/portfolio/quasicrystalline-nature-of-consciousness-in-the-universe">The Quasicrystalline Nature of Consciousness in the Universe</a></li>
-    </ul>
+<div class="actions">
+    <button class="modal-trigger" id="references-button" type="button">References</button>
 </div>
-<div>
-    <p>Struktura ma wyraźne centrum, które zaczyna się przy 4 warstwach.</p>
-    <p>Quasikryształy w WebVR - koniecznie.</p>
-</div>
+<dialog class="links-modal" id="references-modal">
+    <div class="links-modal__content">
+        <div class="links-modal__header">
+            <h2 class="links-modal__title">Further Reading</h2>
+            <button class="links-modal__close" id="references-close" type="button" aria-label="Close references">&times;</button>
+        </div>
+        <ul>
+            <li><a href="http://mainisusuallyafunction.blogspot.com/2011/10/quasicrystals-as-sums-of-waves-in-plane.html">Werja Haskell</a> </li>
+            <li><a href="https://www.jasondavies.com/animated-quasicrystals/">Wersja WebGL</a></li>
+            <li><a href="http://wealoneonearth.blogspot.com/search/label/quasicrystal">Wersja Java</a></li>
+            <li><a href="http://discovermagazine.com/2009/feb/14-what-is-this-psychedelic-place-mat">Artykuł w discover</a></li>
+            <li><a href="http://discovermagazine.com/2008/jan/math-breakthrough-spotted-on-mosques">HK w sztuce islamu</a></li>
+            <li><a href="http://discovermagazine.com/2008/jan/math-breakthrough-spotted-on-mosques">O HK</a></li>
+            <li><a href="https://pl.wikipedia.org/wiki/Kwazikryszta%C5%82">Wiki pl</a></li>
+            <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4594519/">Subcellular neuronal quasicrystals: Implications for consciousness</a></li>
+            <li><a href="https://quantumgravityresearch.org/portfolio/quasicrystalline-nature-of-consciousness-in-the-universe">The Quasicrystalline Nature of Consciousness in the Universe</a></li>
+        </ul>
+    </div>
+</dialog>
+<script>
+    (function () {
+        var modal = document.getElementById('references-modal');
+        var openButton = document.getElementById('references-button');
+        var closeButton = document.getElementById('references-close');
+
+        openButton.addEventListener('click', function () {
+            modal.showModal();
+        });
+
+        closeButton.addEventListener('click', function () {
+            modal.close();
+        });
+
+        modal.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.close();
+            }
+        });
+    }());
+</script>
 </body>
 </html>
