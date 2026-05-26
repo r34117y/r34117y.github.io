@@ -19,7 +19,7 @@
     <hr>
 </div>
 <div id="sketch"></div>
-<div class="actions">
+<div class="references-panel" id="references-panel">
     <button class="modal-trigger" id="references-button" type="button">References</button>
 </div>
 <dialog class="links-modal" id="references-modal">
@@ -46,6 +46,20 @@
         var modal = document.getElementById('references-modal');
         var openButton = document.getElementById('references-button');
         var closeButton = document.getElementById('references-close');
+        var referencesPanel = document.getElementById('references-panel');
+
+        function positionReferencesPanel() {
+            var gui = document.querySelector('.lil-gui.root');
+            var right = window.innerWidth <= 768 ? 12 : 20;
+            var top = window.innerWidth <= 768 ? 12 : 20;
+
+            if (gui) {
+                top = gui.offsetTop + gui.offsetHeight + 12;
+            }
+
+            referencesPanel.style.top = top + 'px';
+            referencesPanel.style.right = right + 'px';
+        }
 
         openButton.addEventListener('click', function () {
             modal.showModal();
@@ -60,6 +74,10 @@
                 modal.close();
             }
         });
+
+        positionReferencesPanel();
+        window.addEventListener('resize', positionReferencesPanel);
+        window.setTimeout(positionReferencesPanel, 0);
     }());
 </script>
 </body>
