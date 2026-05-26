@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c63986b3-640b-4132-9e75-13ab44bd33fa" name="Changes" comment="quasicrystals refactor">
-      <change beforePath="$PROJECT_DIR$/js/quasicrystals.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/quasicrystals.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/quasicrystals.html" beforeDir="false" afterPath="$PROJECT_DIR$/quasicrystals.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +65,7 @@
       <workItem from="1758863017191" duration="10033000" />
       <workItem from="1762273523450" duration="635000" />
       <workItem from="1762939797763" duration="12000" />
-      <workItem from="1779793378742" duration="1976000" />
+      <workItem from="1779793378742" duration="2793000" />
     </task>
     <task id="LOCAL-00001" summary="quasicrystals refactor">
       <option name="closed" value="true" />
@@ -98,7 +99,15 @@
       <option name="project" value="LOCAL" />
       <updated>1779795262331</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="quasicrystals refactor">
+      <option name="closed" value="true" />
+      <created>1779795553531</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1779795553531</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
