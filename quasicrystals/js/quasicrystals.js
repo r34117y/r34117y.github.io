@@ -5,12 +5,14 @@ var MAX_LAYERS = 128,
     quasicrystalShader,
     tempoFactor = 0.2,
     coloring = 1,
+    geometry = 1,
     gui,
     directionVectors = [],
     controls = {
         layers: 7,
         tempo: 0.2,
         coloring: 'Grayscale',
+        geometry: 'Planar',
         quality: 1
     };
 
@@ -24,6 +26,7 @@ function syncParameters() {
     layers = controls.layers;
     tempoFactor = controls.tempo;
     coloring = controls.coloring === 'Spectrum' ? 2 : 1;
+    geometry = controls.geometry === 'Spherical' ? 2 : 1;
     orientationDelta = Math.PI / layers;
     rebuildLayerDirections();
     resizeRenderer();
@@ -63,6 +66,7 @@ function setup() {
     gui.add(controls, 'layers', 1, 100, 1).name('Layers').onChange(syncParameters);
     gui.add(controls, 'tempo', 0.1, 1.0, 0.1).name('Tempo').onChange(syncParameters);
     gui.add(controls, 'coloring', ['Grayscale', 'Spectrum']).name('Palette').onChange(syncParameters);
+    gui.add(controls, 'geometry', ['Planar', 'Spherical']).name('Geometry').onChange(syncParameters);
     gui.add(controls, 'quality', 0.5, 1.0, 0.05).name('Render Scale').onChange(syncParameters);
 
     var referencesPanel = document.getElementById('references-panel');
@@ -84,6 +88,7 @@ function draw() {
     quasicrystalShader.setUniform('uDimPix', dimPix);
     quasicrystalShader.setUniform('uLayerCount', layers);
     quasicrystalShader.setUniform('uColoring', coloring);
+    quasicrystalShader.setUniform('uGeometry', geometry);
     quasicrystalShader.setUniform('uDirections', directionVectors);
 
     rect(-width / 2, -height / 2, width, height);

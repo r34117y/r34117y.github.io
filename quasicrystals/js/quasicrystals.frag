@@ -9,10 +9,25 @@ uniform float uTime;
 uniform float uDimPix;
 uniform int uLayerCount;
 uniform int uColoring;
+uniform int uGeometry;
 uniform vec2 uDirections[MAX_LAYERS];
 
 void main() {
     vec2 centered = (vTexCoord - 0.5) * uResolution * uDimPix;
+
+    if (uGeometry == 2) {
+        vec2 screen = vTexCoord * 2.0 - 1.0;
+        float aspect = uResolution.x / max(uResolution.y, 1.0);
+        float fov = radians(90.0);
+        float focalLength = 1.0 / tan(fov * 0.5);
+        vec3 rayDir = normalize(vec3(screen.x * aspect, screen.y, focalLength));
+        float longitude = atan(rayDir.x, rayDir.z);
+        float latitude = asin(clamp(rayDir.y, -1.0, 1.0));
+        float sphereScale = min(uResolution.x, uResolution.y) * uDimPix;
+
+        centered = vec2(longitude, latitude) * sphereScale;
+    }
+
     float sum = 0.0;
 
     for (int i = 0; i < MAX_LAYERS; i++) {
