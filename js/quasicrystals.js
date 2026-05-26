@@ -2,38 +2,36 @@ var dimPix = 0.4,
     layers = 7,
     xPixMax,
     yPixMax,
-    slider,
-    tempoSlider,
     canvas,
     sums = [],
     tempoFactor = 0.2,
-    coloring = 1;
+    coloring = 1,
+    gui,
+    controls = {
+        layers: 7,
+        tempo: 0.2,
+        coloring: 'Grayscale'
+    };
 
 var orientationDelta = Math.PI / layers;
+
+function syncParameters() {
+    layers = controls.layers;
+    tempoFactor = controls.tempo;
+    coloring = controls.coloring === 'Spectrum' ? 2 : 1;
+    orientationDelta = Math.PI / layers;
+}
 
 
 function setup() {
     canvas = createCanvas(200, 200);
     canvas.parent('sketch');
     background(0); // białe tło
-
-    slider = createSlider(1, 100, 7, 1);
-    slider.parent('controls');
-    slider.input(function () {
-        layers = slider.value();
-    });
-
-    tempoSlider = createSlider(0.1, 1.0, 0.2, 0.1);
-    tempoSlider.parent('controls');
-    tempoSlider.input(function () {
-        tempoFactor = tempoSlider.value();
-    });
-
-    colorSlider = createSlider(1, 2, 1, 1);
-    colorSlider.parent('controls');
-    colorSlider.input(function () {
-        coloring = colorSlider.value();
-    });
+    syncParameters();
+    gui = new lil.GUI({ title: 'Parameters' });
+    gui.add(controls, 'layers', 1, 100, 1).name('Layers').onChange(syncParameters);
+    gui.add(controls, 'tempo', 0.1, 1.0, 0.1).name('Tempo').onChange(syncParameters);
+    gui.add(controls, 'coloring', ['Grayscale', 'Spectrum']).name('Palette').onChange(syncParameters);
 
     xPixMax = width / 2;
     yPixMax = height / 2;
